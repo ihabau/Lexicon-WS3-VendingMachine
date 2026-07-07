@@ -29,9 +29,10 @@ public abstract class Product {
 
     public String getName() { return name; }
 
-
     public abstract String getDescription();
 
+    // maybe its not needed??
+    // not needed but stays because of class diagram will be removed once the code is completed
     public String examine() {
         return "";
     }
@@ -40,6 +41,7 @@ public abstract class Product {
         return "";
     }
 
+    // not needed but stays because of class diagram will be removed once the code is completed
     public void decreaseQuantity() {
         this.quantity -=1;
 

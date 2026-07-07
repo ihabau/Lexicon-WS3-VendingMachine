@@ -14,20 +14,33 @@ public class VendingMachineImpl implements VendingMachine{
 
     @Override
     public Product purchaseProduct(int id) {
-        //missing logic
+        //should validate if product is in stock
         for( Product product : products  ) {
-            if (product.id == id) {
+            if (product.getId() == id ) {
+
+                if (product.getQuantity() <= 0) {
+                    System.out.println("stock is empty");
+                    return null;
+                }
+
+                if (product.getPrice() > getBalance()) {
+                    System.out.println("Add more money!");
+                    return null;
+                }
+
+                System.out.printf("Dispensing: %s (%s)\n", product.getName(), product.getDescription());
+                product.decreaseQuantity();
+                depositPool -= product.getPrice();
                 return product;
-            } else {
-                System.out.println("no id recognized");
             }
         }
+        System.out.println("id not recognized");
         return null;
     }
 
     @Override
     public Product[] getProducts() {
-        return new Product[0];
+        return products.toArray(new Product[0]);
     }
 
     @Override
@@ -37,8 +50,9 @@ public class VendingMachineImpl implements VendingMachine{
 
     @Override
     public void insertCoin(int value) {
-        if (Denomination.TWO.isValidCoin(value)) {
+        if (Denomination.isValidCoin(value)) {
             depositPool += value;
+            System.out.println("Insert coin: " + value);
         } else {
             System.out.println("invalid coin!");
         }
@@ -46,8 +60,14 @@ public class VendingMachineImpl implements VendingMachine{
 
     @Override
     public int returnChange() {
-        //return 0 because there is no counter/logic right now.
-        return 0;
+        if (depositPool == 0) {
+            System.out.println("No balance to return.");
+            return depositPool;
+        }
+        int change = depositPool;
+        depositPool = 0;
+        System.out.println("Change returened: " + change + "kr");
+        return change;
     }
 
     @Override

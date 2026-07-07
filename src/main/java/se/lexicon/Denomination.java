@@ -14,19 +14,20 @@ public enum Denomination {
         this.values = value;
     }
 
-    public boolean isValidCoin(int value) {
+    public static boolean isValidCoin(int value) {
 
         for (Denomination d : Denomination.values()) {
             if (d.values == value) {
                 return true;
             }
         }
-        System.out.println( "insert " + getValue() + " coin's.");
+        //System.out.println( "insert " + getValue() + " coin's.");
         return false;
     }
 
 
 
+    // not needed but stays because of class diagram will be removed once the code is completed
     public int getValue() {
        return values;
         //might be meaningless
