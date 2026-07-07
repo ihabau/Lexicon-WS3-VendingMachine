@@ -7,6 +7,7 @@ public class Main {
         VendingMachine machine = new VendingMachineImpl();
         Beverage cola = new Beverage(0, 15, 15,"cola", 33);
 
+
         machine.insertCoin(1);
         machine.insertCoin(2);
         machine.insertCoin(5);
